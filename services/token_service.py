@@ -95,7 +95,7 @@ async def handle_chat_token_request(chat_token_request: ChatTokenRequest):
         # Variable to track if a message has been removed
         message_removed = False
 
-         # Remove the first 'assistant' message if total_tokens exceeds max_tokens
+        # Remove the first 'assistant' message if total_tokens exceeds max_tokens
         while total_tokens > max_tokens:
             for i, message in enumerate(messages):
                 if message.role == 'assistant':  # Corrected access to 'role'
