@@ -1,17 +1,17 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from routers import token_router
 import os
 
-app = FastAPI()
-
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     print("Starting up...")
-    if not os.getenv('VAULT') and not os.getenv('API-KEY'):
-        print("WARNING No keyvault or API-KEY environment variable set")
-
-@app.on_event("shutdown")
-async def shutdown_event():
+    if not os.getenv('API-KEY'):
+        print("WARNING No API-KEY environment variable set")
+    yield
+    # Shutting down
     print("Shutting down...")
+
+app = FastAPI(lifespan=lifespan)
 
 app.include_router(token_router.router)
