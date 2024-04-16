@@ -58,7 +58,7 @@ def calculate_tokens(messages, model="gpt-4"):
         message_dict = message.model_dump()
         num_tokens += tokens_per_message
         for key, value in message_dict.items():                
-            if key is not 'id' and value is not None:
+            if key != 'id' and value is not None:
                 if key == "role":
                     # for function roles messages (where 'key' = 'role' and 'value' = 'function), we need to subtract 2 tokens (again, who knows why)
                     if value == "function": 
