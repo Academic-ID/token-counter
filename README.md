@@ -55,8 +55,8 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 ### API Key (optional)
 
 The code is set up to handle basic API key auth. All you need to do is set the
-`API-KEY` environmental variable with a key and pass this value when calling the
-API by setting the `X-Api-Key` header to the `API-KEY` value.
+`API_KEY` environmental variable with a key and pass this value when calling the
+API by setting the `X-Api-Key` header to the `API_KEY` value.
 
 ## Notes:
 

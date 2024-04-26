@@ -6,8 +6,8 @@ from services import token_service
 router = APIRouter()
 
 async def authenticate_request(request: Request):
-    if os.getenv('API-KEY'):
-        PYTHON_APP_API_KEY = os.getenv('API-KEY')
+    if os.getenv('API_KEY'):
+        PYTHON_APP_API_KEY = os.getenv('API_KEY')
         if request.headers.get("X-Api-Key") != PYTHON_APP_API_KEY:
             raise HTTPException(status_code=401, detail="Invalid API key")
     else:
