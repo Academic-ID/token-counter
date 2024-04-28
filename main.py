@@ -6,7 +6,7 @@ import os
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Starting up...")
-    if not os.getenv('API-KEY'):
+    if not os.getenv('API_KEY'):
         print("WARNING No API-KEY environment variable set")
     yield
     # Shutting down
