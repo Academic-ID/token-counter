@@ -12,8 +12,8 @@ import requests
 async def handle_token_request(token_request: TokenRequest):
     try:
         encoding = tiktoken.encoding_for_model(token_request.model)
-    except KeyError:    
-        encoding = tiktoken.get_encoding("cl100k_base")
+    except KeyError:
+        encoding = tiktoken.get_encoding("o200k_base")
     
     try:
         text = token_request.text
@@ -43,11 +43,11 @@ async def handle_token_request(token_request: TokenRequest):
         )
 
 # Calculate total num_tokens
-def calculate_tokens(messages, model="gpt-4"):
+def calculate_tokens(messages, model="gpt-4o"):
     try:
         encoding = tiktoken.encoding_for_model(model)
     except KeyError:
-        encoding = tiktoken.get_encoding("cl100k_base")
+        encoding = tiktoken.get_encoding("o200k_base")
     
     # We only use gpt-4 so for now, these are the only tokens we need to consider (https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb)
     tokens_per_message = 3

@@ -13,32 +13,40 @@ the functionality.
 
 ## Endpoints:
 
-`/tokens` takes text and a number. The number is the max tokens you want the
-string to be. For exmple, if you are using the OpenAI/Azure OpenAI service for
-embeddings, you can make a call with the string
+### `/tokens`
+
+takes text and a number. The number is the max tokens you want the string to be.
+For exmple, if you are using the OpenAI/Azure OpenAI service for embeddings, you
+can make a call with the string.
+
+`model` is optional and will default to `gpt-4o`.
 
 ```JSON
- { "text": "the string to be counted", "number": 8192 }
+ { "text": "the string to be counted", "number": 8192, "model": "gpt-4o" }
 ```
 
 ---
 
-`/chat_tokens` takes an array of chat message history objects as per the
-OpenAI/Azure OpenAI service chat message. It will count image tokens as part of
-the request, as well as function_call messages and all other message and content
-types currently supported by the OpenAI specification.
+### `/chat_tokens`
+
+takes an array of chat message history objects as per the OpenAI/Azure OpenAI
+service chat message. It will count image tokens as part of the request, as well
+as function_call messages and all other message and content types currently
+supported by the OpenAI specification.
 
 The request will take the below and return a list of the chatMessages that fit
 within the `numberOfMaxTokens` that you specified. It will also return the final
 `token_count` of the messages.
 
+`model` is optional and will default to `gpt-4o`.
+
 ```JSON
-{ "messages": listOfOpenAIChatMessages, "number": numberOfMaxTokens }
+{ "messages": listOfOpenAIChatMessages, "number": numberOfMaxTokens , "model": "gpt-4o" }
 ```
 
 ---
 
-## How to Use / API Key
+## How to Use
 
 To get this code up and running, simply clone this repository and run:
 
@@ -60,21 +68,7 @@ API by setting the `X-Api-Key` header to the `API_KEY` value.
 
 ## Notes:
 
-1. This is currently only set up to count `cl100k_base` encoding which is used
-   in the following models:
-
-```
-gpt-4, gpt-3.5-turbo, text-embedding-ada-002, text-embedding-3-small, text-embedding-3-large
-```
-
-2. This has undergone preliminary testing and seems to be correct. **However,**
-   it is not entirely certain how tokens are counted by OpenAI/Azure's OpenAI
-   service. The best starting point is the code in the
-   [OpenAI Cookbook](https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb).
-   Testing with the addition of images and function_call message types etc., has
-   involved repeated calls with varying lengths and comparing this to the
-   returned token usage numbers returned by calling the OpenAI/Azure OpenAI
-   service endpoints. While unlikely, how tokens are counted and as a result how
-   you are charged may change. As such, it is recommended to test thoroughly
-   before using in your own applications and regularly updating the code as
-   needed.
+1. This code has only been tested for its accuracy on `cl100k_base` encoding
+   using `gpt-4` models. How tokens are counted by the OpenAI API and how you
+   are charged may change. As such, it is recommended to test thoroughly before
+   using in any production capacity.
