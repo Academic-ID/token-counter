@@ -4,7 +4,7 @@ from typing import List, Optional, Union
 class TokenRequest(BaseModel):
     text: str
     number: int
-    model: Optional[str] = None
+    model: Optional[str] = 'gpt-4o'
 
 class ImgContent(BaseModel):
     url: str
@@ -23,12 +23,12 @@ class ChatMessage(BaseModel):
     role: str = None
     content: Optional[Union[str, List[TextContent]]] = None
     name: Optional[str] = None
-    function_call: Optional[FunctionCall] = None     
+    function_call: Optional[FunctionCall] = None
 
 class ChatTokenRequest(BaseModel):
     messages: List[ChatMessage]
     number: int
-    model: str
+    model: Optional[str] = 'gpt-4o'
 
 class TokenResponse(BaseModel):
     text: str
